@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\County;
 
@@ -20,11 +19,11 @@ class CsvCountiesSeeder extends Seeder
         $count = 0;
 
         while (($row = fgetcsv($handle, 0, ',')) !== false) {
-            $name = trim($row[0]);
+            $name = trim($row[0], "\xEF\xBB\xBF \t\n\r\0\x0B");
 
-            County::firstOrCreate([
-                'name' => $name,
-            ]);
+            if (!$name) continue; // skip empty lines
+
+            County::firstOrCreate(['name' => $name]);
 
             $count++;
         }

@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\City;
 
 class CsvCitiesSeeder extends Seeder
 {
-
     public function run(): void
     {
         $path = storage_path('app/iranyitoszamok.csv');
@@ -25,11 +23,13 @@ class CsvCitiesSeeder extends Seeder
             $name = trim($row[1]);
             $countyId = trim($row[2]);
 
-            City::firstOrCreate([
-                'zip' => $zip,
-                'name' => $name,
-                'county_id' => $countyId,
-            ]);
+            // Optional: skip empty lines
+            if (!$zip || !$name || !$countyId) continue;
+
+            City::firstOrCreate(
+                ['zip' => $zip, 'name' => $name],
+                ['county_id' => $countyId]
+            );
 
             $count++;
         }

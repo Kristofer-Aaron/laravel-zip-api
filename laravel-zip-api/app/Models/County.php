@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class County extends Model
 {
-    protected $fillable = ['zip', 'name', 'county_id'];
+    use HasFactory;
 
-    public function county() {
-        return $this->belongsTo(County::class);
+    protected $fillable = ['name'];
+
+    // A county has many cities
+    public function cities()
+    {
+        return $this->hasMany(City::class);
     }
 }
