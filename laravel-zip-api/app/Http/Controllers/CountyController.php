@@ -12,19 +12,11 @@ class CountyController extends Controller
      * @api {get} /counties Get all counties
      * @apiName GetCounties
      * @apiGroup County
+     * @apiDescription Returns all counties.
      *
-     * @apiSuccess {Object[]} counties List of counties.
-     * @apiSuccess {Number} counties.id County unique ID.
-     * @apiSuccess {String} counties.name County name.
-     *
-     * @apiSuccessExample {json} Success-Response:
-     *  HTTP/1.1 200 OK
-     *  [
-     *      {
-     *          "id": 1,
-     *          "name": "Sample County"
-     *      }
-     *  ]
+     * @apiSuccess (200) {Object[]} counties List of counties
+     * @apiSuccess (200) {Number} counties.id County ID
+     * @apiSuccess (200) {String} counties.name County name
      */
     public function index()
     {
@@ -33,29 +25,17 @@ class CountyController extends Controller
     }
 
     /**
-     * @api {get} /counties/:id Get county by ID
+     * @api {get} /counties/:id Get a single county
      * @apiName GetCounty
      * @apiGroup County
+     * @apiDescription Returns a county by its ID.
      *
-     * @apiParam {Number} id County unique ID.
+     * @apiParam {Number} id County ID
      *
-     * @apiSuccess {Number} id County unique ID.
-     * @apiSuccess {String} name County name.
+     * @apiSuccess (200) {Number} id County ID
+     * @apiSuccess (200) {String} name County name
      *
-     * @apiError {String} message Error message.
-     *
-     * @apiSuccessExample {json} Success-Response:
-     *  HTTP/1.1 200 OK
-     *  {
-     *      "id": 1,
-     *      "name": "Sample County"
-     *  }
-     *
-     * @apiErrorExample {json} Not Found:
-     *  HTTP/1.1 404 Not Found
-     *  {
-     *      "message": "County with id not found"
-     *  }
+     * @apiError (404) CountyNotFound County with id not found
      */
     public function show(int $id)
     {
@@ -72,18 +52,14 @@ class CountyController extends Controller
      * @api {post} /counties Create a new county
      * @apiName CreateCounty
      * @apiGroup County
+     * @apiDescription Creates a new county.
      *
-     * @apiBody {String} name County name (unique).
+     * @apiBody {String} name County name
      *
-     * @apiSuccess {Number} id County unique ID.
-     * @apiSuccess {String} name County name.
+     * @apiSuccess (201) {Number} id County ID
+     * @apiSuccess (201) {String} name County name
      *
-     * @apiSuccessExample {json} Success-Response:
-     *  HTTP/1.1 201 Created
-     *  {
-     *      "id": 1,
-     *      "name": "New County"
-     *  }
+     * @apiError (422) ValidationError Returned if validation fails
      */
     public function store(Request $request)
     {
@@ -99,31 +75,20 @@ class CountyController extends Controller
     }
 
     /**
-     * @api {put} /counties/:id Update county by ID
+     * @api {put} /counties/:id Update a county
      * @apiName UpdateCounty
      * @apiGroup County
+     * @apiDescription Updates an existing county.
      *
-     * @apiParam {Number} id County unique ID.
+     * @apiParam {Number} id County ID
      *
-     * @apiBody {String} name County name.
+     * @apiBody {String} name County name
      *
-     * @apiSuccess {Number} id County unique ID.
-     * @apiSuccess {String} name County name.
+     * @apiSuccess (200) {Number} id County ID
+     * @apiSuccess (200) {String} name County name
      *
-     * @apiError {String} message Error message.
-     *
-     * @apiSuccessExample {json} Success-Response:
-     *  HTTP/1.1 200 OK
-     *  {
-     *      "id": 1,
-     *      "name": "Updated County"
-     *  }
-     *
-     * @apiErrorExample {json} Not Found:
-     *  HTTP/1.1 404 Not Found
-     *  {
-     *      "message": "County with id not found"
-     *  }
+     * @apiError (404) CountyNotFound County with id not found
+     * @apiError (422) ValidationError Returned if validation fails
      */
     public function update(Request $request, int $id)
     {
@@ -145,22 +110,16 @@ class CountyController extends Controller
     }
 
     /**
-     * @api {delete} /counties/:id Delete county by ID
+     * @api {delete} /counties/:id Delete a county
      * @apiName DeleteCounty
      * @apiGroup County
+     * @apiDescription Deletes a county by ID.
      *
-     * @apiParam {Number} id County unique ID.
+     * @apiParam {Number} id County ID
      *
-     * @apiSuccessExample {json} Success-Response:
-     *  HTTP/1.1 204 No Content
+     * @apiSuccess (204) NoContent County deleted successfully
      *
-     * @apiError {String} message Error message.
-     *
-     * @apiErrorExample {json} Not Found:
-     *  HTTP/1.1 404 Not Found
-     *  {
-     *      "message": "County with id not found"
-     *  }
+     * @apiError (404) CountyNotFound County with id not found
      */
     public function destroy(int $id)
     {
