@@ -6,6 +6,7 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <h1 class="mb-4 text-center">Login</h1>
+        <p class="text-muted text-center">Admin: email: admin@admin.com password: admin123</p>
 
         <div class="card">
             <div class="card-body">

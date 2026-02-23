@@ -99,7 +99,7 @@
         }
     </style>
 </head>
-<body class="bg-success d-flex align-items-center justify-content-center min-vh-100">
+<body class="bg-secondary d-flex align-items-center justify-content-center min-vh-100">
     <div class="container mt-3">
         <div class="welcome-container">
             <div class="welcome-header">
@@ -114,8 +114,8 @@
             </div>
 
             <div class="cta-buttons">
-                <a href="{{ route('login') }}" class="btn btn-lg btn-success">Login</a>
-                <a href="{{ route('register') }}" class="btn btn-lg btn-outline-success">Register</a>
+                <a href="{{ route('login') }}" class="btn btn-lg btn-primary">Login</a>
+                <a href="{{ route('register') }}" class="btn btn-lg btn-outline-primary">Register</a>
             </div>
         </div>
     </div>

@@ -50,9 +50,9 @@
                             <span class="nav-link text-muted">{{ Auth::user()->name }}</span>
                         </li>
                         <li class="nav-item">
-                            <form method="POST" action="{{ route("logout") }}" style="display: inline;">
+                            <form class="d-inline" method="POST" action="{{ route("logout") }}">
                                 @csrf
-                                <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+                                <button type="submit" class="btn btn-lg btn-outline-light btn-sm">Logout</button>
                             </form>
                         </li>
                     @else

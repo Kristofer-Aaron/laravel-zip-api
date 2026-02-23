@@ -12,11 +12,102 @@ class CityController extends Controller
     public function index()
     {
         try {
-            $response = Http::get("{$this->apiUrl}/cities");
-            $cities = $response->json();
-            return view('cities.index', ['cities' => $cities]);
+            // Get all counties for the filter dropdown
+            $countiesResponse = Http::get("{$this->apiUrl}/counties");
+            $counties = $countiesResponse->json();
+            
+            // Get cities with pagination (25 per page)
+            $page = request('page', 1);
+            $perPage = 25;
+            $skip = ($page - 1) * $perPage;
+            
+            // Build query parameters with filters
+            $params = [
+                'limit' => $perPage,
+                'offset' => $skip,
+            ];
+            
+            // Search filter
+            if ($search = request('search')) {
+                $params['search'] = $search;
+            }
+            
+            // County filter
+            if ($countyId = request('county_filter')) {
+                $params['county_id'] = $countyId;
+            }
+            
+            // Alphabetical filter (starts with letter)
+            if ($letter = request('letter')) {
+                $params['letter'] = strtoupper($letter);
+            }
+            
+            // Get cities from API
+            $citiesResponse = Http::get("{$this->apiUrl}/cities", $params);
+            $citiesData = $citiesResponse->json();
+            
+            // For now, we'll use client-side pagination
+            // Get all cities and apply filters
+            $allCitiesResponse = Http::get("{$this->apiUrl}/cities");
+            $allCities = $allCitiesResponse->json();
+            
+            // Apply filters
+            $filtered = $allCities;
+            
+            if ($search = request('search')) {
+                $search = strtolower($search);
+                $filtered = array_filter($filtered, function ($city) use ($search) {
+                    return stripos($city['name'], $search) !== false || 
+                           stripos($city['zip'] ?? '', $search) !== false;
+                });
+            }
+            
+            if ($countyId = request('county_filter')) {
+                $filtered = array_filter($filtered, function ($city) use ($countyId) {
+                    return $city['county_id'] == $countyId;
+                });
+            }
+            
+            if ($letter = request('letter')) {
+                $letter = strtoupper($letter);
+                $filtered = array_filter($filtered, function ($city) use ($letter) {
+                    return stripos($city['name'], $letter) === 0;
+                });
+            }
+            
+            // Sort alphabetically
+            usort($filtered, function ($a, $b) {
+                return strcmp($a['name'], $b['name']);
+            });
+            
+            // Apply pagination
+            $total = count($filtered);
+            $cities = array_slice($filtered, $skip, $perPage);
+            
+            // Create pagination info
+            $pagination = [
+                'current_page' => (int)$page,
+                'per_page' => $perPage,
+                'total' => $total,
+                'last_page' => ceil($total / $perPage),
+                'has_more' => $page < ceil($total / $perPage),
+            ];
+            
+            return view('cities.index', [
+                'cities' => $cities,
+                'counties' => $counties,
+                'pagination' => $pagination,
+                'search' => request('search'),
+                'county_filter' => request('county_filter'),
+                'letter' => request('letter'),
+            ]);
         } catch (\Exception $e) {
-            return view('cities.index', ['cities' => [], 'error' => 'Failed to fetch cities']);
+            return view('cities.index', [
+                'cities' => [],
+                'counties' => [],
+                'pagination' => [],
+                'error' => 'Failed to fetch cities'
+            ]);
         }
     }
 
