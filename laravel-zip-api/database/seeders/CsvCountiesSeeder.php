@@ -5,13 +5,13 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\County;
 
-class CountiesSeeder extends Seeder
+class CsvCountiesSeeder extends Seeder
 {
     public function run(): void
     {
         $path = storage_path('app/megyek.csv');
         if (!file_exists($path)) {
-            $this->command->error("CSV file could not be found: $path");
+            $this->command->error("CSV fájl nem található: $path");
             return;
         }
 
@@ -21,8 +21,7 @@ class CountiesSeeder extends Seeder
         while (($row = fgetcsv($handle, 0, ',')) !== false) {
             $name = trim($row[0], "\xEF\xBB\xBF \t\n\r\0\x0B");
 
-            // Skip rows with missing data
-            if (!$name) continue; 
+            if (!$name) continue; // skip empty lines
 
             County::firstOrCreate(['name' => $name]);
 
@@ -30,6 +29,6 @@ class CountiesSeeder extends Seeder
         }
 
         fclose($handle);
-        $this->command->info("Import successful: {$count} counties loaded.");
+        $this->command->info("Import sikeres: {$count} megye betöltve.");
     }
 }

@@ -11,6 +11,7 @@ class County extends Model
 
     protected $fillable = ['name'];
 
+    // A county has many cities
     public function cities()
     {
         return $this->hasMany(City::class);
