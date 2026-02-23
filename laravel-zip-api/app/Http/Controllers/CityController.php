@@ -13,28 +13,15 @@ class CityController extends Controller
      * @api {get} /cities Get all cities
      * @apiName GetCities
      * @apiGroup City
+     * @apiDescription Returns all cities with their associated county.
      *
-     * @apiSuccess {Object[]} cities List of cities.
-     * @apiSuccess {Number} cities.id City unique ID.
-     * @apiSuccess {String} cities.zip City ZIP code.
-     * @apiSuccess {String} cities.name City name.
-     * @apiSuccess {Object} cities.county Associated county.
-     * @apiSuccess {Number} cities.county.id County ID.
-     * @apiSuccess {String} cities.county.name County name.
-     *
-     * @apiSuccessExample {json} Success-Response:
-     *  HTTP/1.1 200 OK
-     *  [
-     *      {
-     *          "id": 1,
-     *          "zip": "1234",
-     *          "name": "Sample City",
-     *          "county": {
-     *              "id": 1,
-     *              "name": "Sample County"
-     *          }
-     *      }
-     *  ]
+     * @apiSuccess (200) {Object[]} cities List of cities
+     * @apiSuccess (200) {Number} cities.id City ID
+     * @apiSuccess (200) {String} cities.zip ZIP code
+     * @apiSuccess (200) {String} cities.name City name
+     * @apiSuccess (200) {Object} cities.county Related county
+     * @apiSuccess (200) {Number} cities.county.id County ID
+     * @apiSuccess (200) {String} cities.county.name County name
      */
     public function index()
     {
@@ -43,38 +30,19 @@ class CityController extends Controller
     }
 
     /**
-     * @api {get} /cities/:id Get city by ID
+     * @api {get} /cities/:id Get a single city
      * @apiName GetCity
      * @apiGroup City
+     * @apiDescription Returns a single city by ID.
      *
-     * @apiParam {Number} id City unique ID.
+     * @apiParam {Number} id City ID
      *
-     * @apiSuccess {Number} id City unique ID.
-     * @apiSuccess {String} zip City ZIP code.
-     * @apiSuccess {String} name City name.
-     * @apiSuccess {Object} county Associated county.
-     * @apiSuccess {Number} county.id County ID.
-     * @apiSuccess {String} county.name County name.
+     * @apiSuccess (200) {Number} id City ID
+     * @apiSuccess (200) {String} zip ZIP code
+     * @apiSuccess (200) {String} name City name
+     * @apiSuccess (200) {Object} county Related county
      *
-     * @apiError {String} message Error message.
-     *
-     * @apiSuccessExample {json} Success-Response:
-     *  HTTP/1.1 200 OK
-     *  {
-     *      "id": 1,
-     *      "zip": "1234",
-     *      "name": "Sample City",
-     *      "county": {
-     *          "id": 1,
-     *          "name": "Sample County"
-     *      }
-     *  }
-     *
-     * @apiErrorExample {json} Not Found:
-     *  HTTP/1.1 404 Not Found
-     *  {
-     *      "message": "City with id not found"
-     *  }
+     * @apiError (404) CityNotFound City with id not found
      */
     public function show(int $id)
     {
@@ -91,29 +59,18 @@ class CityController extends Controller
      * @api {post} /cities Create a new city
      * @apiName CreateCity
      * @apiGroup City
+     * @apiDescription Creates a new city. If the specified county does not exist, it will be created.
      *
-     * @apiBody {String} zip City ZIP code (4 digits).
-     * @apiBody {String} name City name.
-     * @apiBody {String} county County name.
+     * @apiBody {String{4}} zip ZIP code (4 digits)
+     * @apiBody {String} name City name
+     * @apiBody {String} county County name
      *
-     * @apiSuccess {Number} id City unique ID.
-     * @apiSuccess {String} zip City ZIP code.
-     * @apiSuccess {String} name City name.
-     * @apiSuccess {Object} county Associated county.
-     * @apiSuccess {Number} county.id County ID.
-     * @apiSuccess {String} county.name County name.
+     * @apiSuccess (201) {Number} id City ID
+     * @apiSuccess (201) {String} zip ZIP code
+     * @apiSuccess (201) {String} name City name
+     * @apiSuccess (201) {Object} county Related county
      *
-     * @apiSuccessExample {json} Success-Response:
-     *  HTTP/1.1 201 Created
-     *  {
-     *      "id": 1,
-     *      "zip": "1234",
-     *      "name": "New City",
-     *      "county": {
-     *          "id": 1,
-     *          "name": "New County"
-     *      }
-     *  }
+     * @apiError (422) ValidationError Returned if request validation fails
      */
     public function store(Request $request)
     {
@@ -135,42 +92,24 @@ class CityController extends Controller
     }
 
     /**
-     * @api {put} /cities/:id Update city by ID
+     * @api {put} /cities/:id Update an existing city
      * @apiName UpdateCity
      * @apiGroup City
+     * @apiDescription Updates the city with the given ID. Creates the county if it does not exist.
      *
-     * @apiParam {Number} id City unique ID.
+     * @apiParam {Number} id City ID
      *
-     * @apiBody {String} zip City ZIP code (4 digits).
-     * @apiBody {String} name City name.
-     * @apiBody {String} county County name.
+     * @apiBody {String{4}} zip ZIP code (4 digits)
+     * @apiBody {String} name City name
+     * @apiBody {String} county County name
      *
-     * @apiSuccess {Number} id City unique ID.
-     * @apiSuccess {String} zip City ZIP code.
-     * @apiSuccess {String} name City name.
-     * @apiSuccess {Object} county Associated county.
-     * @apiSuccess {Number} county.id County ID.
-     * @apiSuccess {String} county.name County name.
+     * @apiSuccess (200) {Number} id City ID
+     * @apiSuccess (200) {String} zip ZIP code
+     * @apiSuccess (200) {String} name City name
+     * @apiSuccess (200) {Object} county Related county
      *
-     * @apiError {String} message Error message.
-     *
-     * @apiSuccessExample {json} Success-Response:
-     *  HTTP/1.1 200 OK
-     *  {
-     *      "id": 1,
-     *      "zip": "1234",
-     *      "name": "Updated City",
-     *      "county": {
-     *          "id": 1,
-     *          "name": "Updated County"
-     *      }
-     *  }
-     *
-     * @apiErrorExample {json} Not Found:
-     *  HTTP/1.1 404 Not Found
-     *  {
-     *      "message": "City with id not found"
-     *  }
+     * @apiError (404) CityNotFound City with id not found
+     * @apiError (422) ValidationError Returned if request validation fails
      */
     public function update(Request $request, int $id)
     {
@@ -198,22 +137,16 @@ class CityController extends Controller
     }
 
     /**
-     * @api {delete} /cities/:id Delete city by ID
+     * @api {delete} /cities/:id Delete a city
      * @apiName DeleteCity
      * @apiGroup City
+     * @apiDescription Deletes a city by ID.
      *
-     * @apiParam {Number} id City unique ID.
+     * @apiParam {Number} id City ID
      *
-     * @apiSuccessExample {json} Success-Response:
-     *  HTTP/1.1 204 No Content
+     * @apiSuccess (204) NoContent City deleted successfully
      *
-     * @apiError {String} message Error message.
-     *
-     * @apiErrorExample {json} Not Found:
-     *  HTTP/1.1 404 Not Found
-     *  {
-     *      "message": "City with id not found"
-     *  }
+     * @apiError (404) CityNotFound City with id not found
      */
     public function destroy(int $id)
     {
