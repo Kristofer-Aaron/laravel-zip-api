@@ -47,7 +47,7 @@ class CityController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'county_id' => 'required|integer',
-            'postal_code' => 'nullable|string|max:10',
+            'zip' => 'nullable|string|max:10',
         ]);
 
         try {
@@ -76,7 +76,7 @@ class CityController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'county_id' => 'required|integer',
-            'postal_code' => 'nullable|string|max:10',
+            'zip' => 'nullable|string|max:10',
         ]);
 
         try {

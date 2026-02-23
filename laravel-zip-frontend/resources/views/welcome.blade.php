@@ -6,13 +6,7 @@
     <title>Welcome - City & County Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            color: #333;
-        }
+
         .welcome-container {
             background: white;
             border-radius: 10px;
@@ -97,45 +91,31 @@
             color: white;
         }
         .btn-secondary-custom {
-            border: 2px solid #667eea;
             background: white;
-            color: #667eea;
         }
         .btn-secondary-custom:hover {
             background: #f8f9ff;
             transform: translateY(-2px);
-            color: #667eea;
         }
     </style>
 </head>
-<body>
-    <div class="container">
+<body class="bg-success d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container mt-3">
         <div class="welcome-container">
             <div class="welcome-header">
                 <div class="logo"></div>
                 <h1>City & County Manager</h1>
-                <p>Manage Hungarian cities and counties efficiently</p>
+                <p>By Kristóf Áron</p>
             </div>
 
             <div class="welcome-content">
-                <h2>Welcome!</h2>
-                <p>This is a modern web application designed to help you manage cities and counties data with ease. Sign in or create an account to get started.</p>
-
-                <h2>Key Features</h2>
-                <ul class="features">
-                    <li>Complete city management system</li>
-                    <li>County administration tools</li>
-                    <li>Full CRUD operations</li>
-                    <li>Secure authentication</li>
-                    <li>User-friendly interface</li>
-                </ul>
-
-                <p><strong>Ready to get started?</strong> Choose an option below:</p>
+                <h2 class="text-center">Welcome!</h2>
+                <p class="text-center">This is a Laravel-based application for managing Hungarian cities and counties.</p>
             </div>
 
             <div class="cta-buttons">
-                <a href="{{ route('login') }}" class="btn btn-lg-custom btn-primary-custom">Login</a>
-                <a href="{{ route('register') }}" class="btn btn-lg-custom btn-secondary-custom">Register</a>
+                <a href="{{ route('login') }}" class="btn btn-lg btn-success">Login</a>
+                <a href="{{ route('register') }}" class="btn btn-lg btn-outline-success">Register</a>
             </div>
         </div>
     </div>

@@ -42,10 +42,10 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="postal_code" class="form-label">Postal Code</label>
-                        <input type="text" class="form-control @error("postal_code") is-invalid @enderror" 
-                               id="postal_code" name="postal_code" value="{{ old("postal_code", $city["postal_code"] ?? "") }}">
-                        @error("postal_code")
+                        <label for="zip" class="form-label">ZIP Code</label>
+                        <input type="text" class="form-control @error("zip") is-invalid @enderror" 
+                               id="zip" name="zip" value="{{ old("zip", $city["zip"] ?? "") }}">
+                        @error("zip")
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

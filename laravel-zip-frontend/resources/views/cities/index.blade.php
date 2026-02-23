@@ -26,7 +26,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>County ID</th>
-                            <th>Postal Code</th>
+                            <th>ZIP Code</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -36,7 +36,7 @@
                                 <td>{{ $city["id"] ?? "N/A" }}</td>
                                 <td><strong>{{ $city["name"] ?? "N/A" }}</strong></td>
                                 <td>{{ $city["county_id"] ?? "N/A" }}</td>
-                                <td>{{ $city["postal_code"] ?? "N/A" }}</td>
+                                <td>{{ $city["zip"] ?? "N/A" }}</td>
                                 <td>
                                     <div class="btn-group-action">
                                         <a href="{{ route("cities.show", $city["id"]) }}" class="btn btn-sm btn-info">View</a>

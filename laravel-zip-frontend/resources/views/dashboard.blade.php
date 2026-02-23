@@ -3,10 +3,10 @@
 @section("title", "Dashboard")
 
 @section("content")
+<main class="container min-vh-100">
 <div class="row mb-4">
     <div class="col-lg-12">
-        <h1 class="mb-2">Welcome back, {{ Auth::user()->name }}! </h1>
-        <p class="lead text-muted">Manage Hungarian cities and counties efficiently</p>
+        <h1 class="mb-2">Welcome, {{ Auth::user()->name }}! </h1>
     </div>
 </div>
 
@@ -32,18 +32,6 @@
         </div>
     </div>
 </div>
+</main>
 
-<div class="row mt-5">
-    <div class="col-lg-12">
-        <div class="card bg-light">
-            <div class="card-body">
-                <h5 class="card-title">About This Application</h5>
-                <p class="card-text">
-                    This is a frontend application to manage Hungarian cities and counties. 
-                    It communicates with a Laravel API backend running on <code>http://localhost:8000/api</code>.
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

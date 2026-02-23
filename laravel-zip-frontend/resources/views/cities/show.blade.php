@@ -34,10 +34,10 @@
 
                 <div class="row mb-3">
                     <div class="col-sm-4">
-                        <strong>Postal Code:</strong>
+                        <strong>ZIP Code:</strong>
                     </div>
                     <div class="col-sm-8">
-                        {{ $city["postal_code"] ?? "N/A" }}
+                        {{ $city["zip"] ?? "N/A" }}
                     </div>
                 </div>
 
