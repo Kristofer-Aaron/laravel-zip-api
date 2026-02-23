@@ -6,15 +6,13 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // Seed counties first
-        $this->call(CsvCountiesSeeder::class);
+        // Seed users
+        $this->call(UserSeeder::class);
 
-        // Then cities (depends on counties)
-        $this->call(CsvCitiesSeeder::class);
+        // Seed counties and cities tables
+        $this->call(CountiesSeeder::class);
+        $this->call(CitiesSeeder::class);
     }
 }

@@ -5,13 +5,13 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\City;
 
-class CsvCitiesSeeder extends Seeder
+class CitiesSeeder extends Seeder
 {
     public function run(): void
     {
         $path = storage_path('app/iranyitoszamok.csv');
         if (!file_exists($path)) {
-            $this->command->error("CSV fájl nem található: $path");
+            $this->command->error("CSV file could not be found: $path");
             return;
         }
 
@@ -23,7 +23,7 @@ class CsvCitiesSeeder extends Seeder
             $name = trim($row[1]);
             $countyId = trim($row[2]);
 
-            // Optional: skip empty lines
+            // Skip rows with missing data
             if (!$zip || !$name || !$countyId) continue;
 
             City::firstOrCreate(
@@ -35,6 +35,6 @@ class CsvCitiesSeeder extends Seeder
         }
 
         fclose($handle);
-        $this->command->info("Import sikeres: {$count} város betöltve.");
+        $this->command->info("Import successful: {$count} cities loaded.");
     }
 }

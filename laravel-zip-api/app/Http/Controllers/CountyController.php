@@ -8,6 +8,7 @@ use App\Models\County;
 
 class CountyController extends Controller
 {
+    
     /**
      * @api {get} /counties Get all counties
      * @apiName GetCounties
